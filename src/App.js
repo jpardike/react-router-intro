@@ -1,25 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Switch, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import HomePage from "./pages/HomePage";
+import ContactPage from "./pages/ContactPage";
+import AboutPage from "./pages/AboutPage";
+import ProductsPage from "./pages/ProductsPage";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import "./App.css";
+
+class App extends React.Component {
+  state = {
+    user: {},
+  };
+
+  // componentDidMount() {
+  //   // Make API call to get the user
+  //   const userFromApi = {
+  //     user: {
+  //       name: "John Doe",
+  //       username: "Johnny D",
+  //       email: "jdoe@gmail.com",
+  //     },
+  //   };
+
+  //   this.setState(userFromApi);
+  // }
+
+  render() {
+    return (
+      <div>
+        <Navbar username={this.state.user.username} />
+        <Switch>
+          <Route path="/about" component={AboutPage} />
+          <Route path="/contact" component={ContactPage} />
+          <Route path="/products" render={() => <ProductsPage user={this.state.user} />} />
+          <Route path="/" component={HomePage} />
+        </Switch>
+      </div>
+    );
+  }
 }
 
 export default App;
